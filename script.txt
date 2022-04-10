@@ -1,0 +1,34 @@
+#CREATE TABLE
+CREATE TABLE IF NOT EXISTS `tb_movies` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NULL,
+  `type` CHAR(1) NOT NULL COMMENT 'F-ilmes ou S-eries',
+  `ep_total` INT NULL,
+  `ep_atual` INT NULL,
+  `last_view` TIMESTAMP NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+#INSERT
+insert into tb_movies (name, type, ep_total, ep_atual, last_view) values('300','F', null, null, null);
+insert into tb_movies (name, type, ep_total, ep_atual, last_view) values('Friends','S', 10, 1, now());
+insert into tb_movies (name, type, ep_total, ep_atual, last_view) values('Grey','S', 10, 1, now());
+
+#LIST
+select m.id, 
+	   m.name, 
+       m.type,
+       (case when m.type='S' then 'SERIES'
+			 when m.type='F' then 'FILMES'
+             else '------'
+        end) as ds_type,
+	   m.ep_total,
+       m.ep_atual,
+       m.last_view
+  from tb_movies m;
+  
+#UPDATE SERIE VIEW
+UPDATE tb_movies set ep_atual = 2, last_view = now() where id = 2;
+
+#DELETE SERIE
+DELETE FROM tb_movies where id = 3;
